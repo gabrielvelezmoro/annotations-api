@@ -1,6 +1,5 @@
 import { inject, injectable } from 'tsyringe'
-import { Person } from '@modules/operation/infra/typeorm/entities/person'
-import { IPersonRepository } from '@modules/operation/repositories/i-person-repository'
+import { IAnotacaoRepository } from '@modules/operation/repositories/i-anotacao-repository'
 import { HttpResponse } from '@shared/helpers'
 
 interface IRequest {
@@ -11,10 +10,10 @@ interface IRequest {
 }
 
 @injectable()
-class ListPersonUseCase {
+class ListAnotacaoUseCase {
   constructor(
-    @inject('PersonRepository')
-    private personRepository: IPersonRepository
+    @inject('AnotacaoRepository')
+    private anotacaoRepository: IAnotacaoRepository
   ) {}
 
   async execute({
@@ -23,15 +22,15 @@ class ListPersonUseCase {
     rowsPerPage,
     columnOrder
   }: IRequest): Promise<HttpResponse> {
-    const persons = await this.personRepository.list(
+    const anotacaos = await this.anotacaoRepository.list(
       search,
       page,
       rowsPerPage,
       columnOrder
     )
 
-    return persons
+    return anotacaos
   }
 }
 
-export { ListPersonUseCase }
+export { ListAnotacaoUseCase }

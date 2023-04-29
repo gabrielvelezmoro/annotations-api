@@ -27,8 +27,8 @@ Modelo Pessoa:
 
 Modelo Anotação:
 
-    •	id - inteiro, autoincremento e chave primária
-    •	id_pessoa - inteiro, chave estrangeira é obrigatória
+• id - inteiro, autoincremento e chave primária  
+• id_pessoa - inteiro, chave estrangeira é obrigatória
 
 • titulo - texto limitado a 255 caracteres e obrigatório
 • descricao - texto limitado a 2000 caracteres e opcional
@@ -82,4 +82,4 @@ Boa sorte!
 
 Equipe **#roga_rocks**
 
-## Rodar com `npm i`
+## Rodar com npm

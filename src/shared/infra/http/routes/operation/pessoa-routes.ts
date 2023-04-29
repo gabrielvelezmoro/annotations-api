@@ -1,9 +1,9 @@
 import { Router } from 'express'
-import { CreatePessoaController } from '@modules/operation/use-cases/friend/create-pessoa/create-pessoa-controller'
-import { ListPessoaController } from '@modules/operation/use-cases/friend/list-pessoa/list-pessoa-controller'
-import { GetPessoaController } from '@modules/operation/use-cases/friend/get-pessoa/get-pessoa-controller'
-import { UpdatePessoaController } from '@modules/operation/use-cases/friend/update-pessoa/update-pessoa-controller'
-import { DeletePessoaController } from '@modules/operation/use-cases/friend/delete-pessoa/delete-pessoa-controller'
+import { CreatePessoaController } from '@modules/operation/use-cases/pessoa/create-pessoa/create-pessoa-controller'
+import { ListPessoaController } from '@modules/operation/use-cases/pessoa/list-pessoa/list-pessoa-controller'
+import { GetPessoaController } from '@modules/operation/use-cases/pessoa/get-pessoa/get-pessoa-controller'
+import { UpdatePessoaController } from '@modules/operation/use-cases/pessoa/update-pessoa/update-pessoa-controller'
+import { DeletePessoaController } from '@modules/operation/use-cases/pessoa/delete-pessoa/delete-pessoa-controller'
 import { ensureAuthenticated } from '@shared/infra/http/middlewares/ensure-authenticated'
 
 const pessoaRoutes = Router()

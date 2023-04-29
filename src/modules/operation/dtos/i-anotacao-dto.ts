@@ -1,5 +1,5 @@
 interface IAnotacaoDTO {
-  id: number
+  id?: number
   idPessoa: number
   titulo: string
   descricao?: string
