@@ -332,9 +332,9 @@
                                         "$ref": "#\/components\/schemas\/NotaCreate"
                                     },
                                     "example": {
-                                        "id": "da9f1c3d-3271-4b30-b729-1196e5b7402b",
-                                        "state_id": "8f019a6b-cd1e-46e4-b1f6-a7b810a065ea",
-                                        "name": "Nome de nota"
+                                        "titulo": "Teste",
+                                        "descricao": "swagger",
+                                        "idPessoa": 2
                                     }
                                 }
                             }
@@ -376,9 +376,9 @@
                                         "$ref": "#\/components\/schemas\/NotaUpdate"
                                     },
                                     "example": {
-                                        "id": "da9f1c3d-3271-4b30-b729-1196e5b7402b",
-                                        "state_id": "f22683d6-6e11-428d-9d01-d979101eb036",
-                                        "name": "Nome de nota"
+                                        "id": 2,
+                                        "titulo": "Editado",
+                                        "descricao": "Edição para ficar mais bonito"
                                     }
                                 }
                             }
@@ -420,19 +420,12 @@
                                     },
                                     "example": [
                                         {
-                                            "id": "04450d12-ae57-4dea-954e-43e014878612",
-                                            "state_id": "2df9a958-e7cb-4656-9ce2-3b8fe47168cf",
-                                            "name": "Nome de nota 1"
+                                            "id": 1,
+                                            "titulo": "Editado"
                                         },
                                         {
-                                            "id": "761fbd00-0e00-401c-9eca-fa11bc7cdcac",
-                                            "state_id": "9d5b5f6c-298d-4d57-893b-c57461670c6f",
-                                            "name": "Nome de nota 2"
-                                        },
-                                        {
-                                            "id": "e8de5b1f-f784-413c-9c1b-ed2d55715add",
-                                            "state_id": "ad2b9a13-7e6d-442b-a41d-41f83cddf59e",
-                                            "name": "Nome de nota 3"
+                                            "id": 2,
+                                            "titulo": "Editado"
                                         }
                                     ]
                                 }
@@ -476,9 +469,21 @@
                                         "$ref": "#\/components\/schemas\/NotaGet"
                                     },
                                     "example": {
-                                        "id": "da9f1c3d-3271-4b30-b729-1196e5b7402b",
-                                        "state_id": "8b8898c3-c0f3-4233-9327-034c3a416713",
-                                        "name": "Nome de nota"
+                                        "id": 2,
+                                        "titulo": "Editado",
+                                        "descricao": "Edição para ficar mais bonito",
+                                        "dataCadastro": "2023-04-29T03:00:00.000Z",
+                                        "dataEdicao": "2023-04-29T03:00:00.000Z",
+                                        "idPessoa": {
+                                            "id": 2,
+                                            "nome": "Gabriel Velezmoro",
+                                            "nomeMae": "nome mae",
+                                            "nomePai": "nome pai",
+                                            "cep": "88790000",
+                                            "dataNascimento": "1997-02-07T02:00:00.000Z",
+                                            "dataCadastro": "2023-04-28T03:00:00.000Z",
+                                            "dataEdicao": "2023-04-29T03:00:00.000Z"
+                                        }
                                     }
                                 }
                             }
@@ -519,9 +524,8 @@
                                         "$ref": "#\/components\/schemas\/NotaGet"
                                     },
                                     "example": {
-                                        "id": "da9f1c3d-3271-4b30-b729-1196e5b7402b",
-                                        "state_id": "6dafc499-8b70-47e4-9b49-5a9353cc2083",
-                                        "name": "Nome de nota"
+                                        "id": 2,
+                                        "titulo": "Editado"
                                     }
                                 }
                             }
@@ -590,7 +594,7 @@
                 "type": "object",
                 "properties": {
                     "id": {
-                        "type": "string"
+                        "type": "int"
                     },
                     "code": {
                         "type": "string"
@@ -609,7 +613,7 @@
                 "type": "object",
                 "properties": {
                     "id": {
-                        "type": "string"
+                        "type": "int"
                     },
                     "nome": {
                         "type": "string"
@@ -639,16 +643,20 @@
             "NotaCreate": {
                 "type": "object",
                 "properties": {
-                    "state_id": {
+                    "titulo": {
                         "type": "string"
                     },
-                    "name": {
+                    "descricao": {
                         "type": "string"
+                    },
+                    "idPessoa": {
+                        "type": "int"
                     }
                 },
                 "example": {
-                    "state_id": "e09c8bef-4394-4e7d-9d25-6996c4cdce86",
-                    "name": "Nome de nota"
+                    "titulo": "Salve",
+                    "descricao": "salve salve",
+                    "idPessoa": 2
                 }
             },
             "NotaList": {
@@ -665,47 +673,92 @@
                     }
                 },
                 "example": {
-                    "search": "nota",
+                    "search": "",
                     "rowsPerPage": "10",
-                    "page": 1
+                    "page": 0
                 }
             },
             "NotaGet": {
                 "type": "object",
                 "properties": {
                     "id": {
+                        "type": "int"
+                    },
+                    "titulo": {
                         "type": "string"
                     },
-                    "state_id": {
+                    "descricao": {
                         "type": "string"
                     },
-                    "name": {
+                    "dataCadastro": {
                         "type": "string"
+                    },
+                    "dataEdicao": {
+                        "type": "string"
+                    },
+                    "idPessoa": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "int"
+                            },
+                            "nome": {
+                                "type": "string"
+                            },
+                            "nomeMae": {
+                                "type": "string"
+                            },
+                            "nomePai": {
+                                "type": "string"
+                            },
+                            "cep": {
+                                "type": "string"
+                            },
+                            "dataNascimento": {
+                                "type": "string"
+                            },
+                            "dataCadastro": {
+                                "type": "string"
+                            },
+                            "dataEdicao": {
+                                "type": "string"
+                            }
+                        }
                     }
                 },
                 "example": {
-                    "id": "da9f1c3d-3271-4b30-b729-1196e5b7402b",
-                    "state_id": "b63764b1-b0f0-4b82-b0ac-f0754346f23c",
-                    "name": "Nome de nota"
+                    "id": 2,
+                    "titulo": "Editado",
+                    "descricao": "Edição para ficar mais bonito",
+                    "dataCadastro": "2023-04-29T03:00:00.000Z",
+                    "dataEdicao": "2023-04-29T03:00:00.000Z",
+                    "idPessoa": {
+                        "id": 2,
+                        "nome": "Gabriel Velezmoro",
+                        "nomeMae": "nome mae",
+                        "nomePai": "nome pai",
+                        "cep": "88790000",
+                        "dataNascimento": "1997-02-07T02:00:00.000Z"
+                    }
                 }
             },
             "NotaUpdate": {
                 "type": "object",
                 "properties": {
                     "id": {
+                        "type": "int"
+                    },
+                    "titulo": {
                         "type": "string"
                     },
-                    "state_id": {
-                        "type": "string"
-                    },
-                    "name": {
+                    "descricao": {
                         "type": "string"
                     }
                 },
                 "example": {
-                    "id": "da9f1c3d-3271-4b30-b729-1196e5b7402b",
-                    "state_id": "2e2c5c36-ed47-4dcc-b3fb-7eb97d9f7007",
-                    "name": "Nome de nota"
+                    "id": 2,
+                    "titulo": "Editado",
+                    "descricao": "Edição para ficar mais bonito"
                 }
             }
         }
