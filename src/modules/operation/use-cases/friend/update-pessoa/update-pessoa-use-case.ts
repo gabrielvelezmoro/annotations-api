@@ -1,6 +1,10 @@
 import { inject, injectable } from 'tsyringe'
 import { IPessoaRepository } from '@modules/operation/repositories/i-pessoa-repository'
 import { HttpResponse } from '@shared/helpers'
+import { AxiosRequest } from '@utils/axios'
+import {AxiosRequestConfig} from 'axios'
+import { AppError } from '@shared/errors/app-error'
+
 
 interface IRequest {
   nome: string;
@@ -15,16 +19,30 @@ class UpdatePessoaUseCase {
   constructor(
     @inject('PessoaRepository')
     private pessoaRepository: IPessoaRepository
-  ) {}
+    ) {}
+    
+    async execute({
+      nome,
+      nomeMae,
+      nomePai,
+      cep,
+      dataNascimento,
+    }: IRequest): Promise<HttpResponse> {
+    const axiosRequest = new AxiosRequest() 
+      
+    const config: AxiosRequestConfig = {
+      baseURL: 'https://viacep.com.br/ws/' + cep + '/json/',
+      method: "GET",
+    };
+    
+    try {
+      await axiosRequest.execute(config)
+    } catch (error) {
+      throw new AppError('CEP não localizado', 404)
+    }
+  
 
-  async execute({
-    nome,
-    nomeMae,
-    nomePai,
-    cep,
-    dataNascimento,
-  }: IRequest): Promise<HttpResponse> {
-    const friend = await this.pessoaRepository.update({
+    const person = await this.pessoaRepository.update({
       nome,
       nomeMae,
       nomePai,
@@ -32,7 +50,7 @@ class UpdatePessoaUseCase {
       dataNascimento,
     })
 
-    return friend
+    return person
   }
 }
 
