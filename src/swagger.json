@@ -11,8 +11,8 @@
                 "tags": [
                     "Pessoas"
                 ],
-                "summary": "Create a State.",
-                "description": "Create a State.",
+                "summary": "Create a Pessoa.",
+                "description": "Create a Pessoa.",
                 "security": [
                     {
                         "bearerAuth": []
@@ -22,32 +22,34 @@
                     "content": {
                         "application\/json": {
                             "schema": {
-                                "$ref": "#\/components\/schemas\/StateCreate"
+                                "$ref": "#\/components\/schemas\/PessoaCreate"
                             }
                         }
                     }
                 },
                 "responses": {
                     "201": {
-                        "description": "State created",
+                        "description": "Pessoa created",
                         "content": {
                             "application\/json": {
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#\/components\/schemas\/StateCreate"
+                                        "$ref": "#\/components\/schemas\/PessoaCreate"
                                     },
                                     "example": {
-                                        "id": "da9f1c3d-3271-4b30-b729-1196e5b7402b",
-                                        "code": "Uf de state",
-                                        "name": "Nome de state"
+                                        "nome": "Gabriel Velezmoro",
+                                        "nomeMae": "nome mae",
+                                        "nomePai": "nome pai",
+                                        "cep": "88790000",
+                                        "dataNascimento": "02-07-1997"
                                     }
                                 }
                             }
                         }
                     },
                     "500": {
-                        "description": "State already created"
+                        "description": "Pessoa already created"
                     }
                 }
             },
@@ -55,8 +57,8 @@
                 "tags": [
                     "Pessoas"
                 ],
-                "summary": "Update a State.",
-                "description": "Update a State.",
+                "summary": "Update a Pessoa.",
+                "description": "Update a Pessoa.",
                 "security": [
                     {
                         "bearerAuth": []
@@ -66,25 +68,30 @@
                     "content": {
                         "application\/json": {
                             "schema": {
-                                "$ref": "#\/components\/schemas\/StateUpdate"
+                                "$ref": "#\/components\/schemas\/PessoaUpdate"
                             }
                         }
                     }
                 },
                 "responses": {
                     "201": {
-                        "description": "State updated",
+                        "description": "Pessoa updated",
                         "content": {
                             "application\/json": {
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#\/components\/schemas\/StateUpdate"
+                                        "$ref": "#\/components\/schemas\/PessoaUpdate"
                                     },
                                     "example": {
-                                        "id": "da9f1c3d-3271-4b30-b729-1196e5b7402b",
-                                        "code": "Uf de state",
-                                        "name": "Nome de state"
+                                        "id": 5,
+                                        "nome": "Gabriel Velezmoro",
+                                        "nomeMae": "nome mae",
+                                        "nomePai": "nome pai",
+                                        "cep": "88790000",
+                                        "dataNascimento": "1997-02-07T02:00:00.000Z",
+                                        "dataCadastro": "2023-04-29T03:00:00.000Z",
+                                        "dataEdicao": "2023-04-29T03:00:00.000Z"
                                     }
                                 }
                             }
@@ -98,8 +105,8 @@
                 "tags": [
                     "Pessoas"
                 ],
-                "summary": "List all States.",
-                "description": "List all States.",
+                "summary": "List all Pessoas.",
+                "description": "List all Pessoas.",
                 "security": [
                     {
                         "bearerAuth": []
@@ -109,7 +116,7 @@
                     "content": {
                         "application\/json": {
                             "schema": {
-                                "$ref": "#\/components\/schemas\/StateList"
+                                "$ref": "#\/components\/schemas\/PessoaList"
                             }
                         }
                     }
@@ -122,23 +129,58 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#\/components\/schemas\/StateList"
+                                        "$ref": "#\/components\/schemas\/PessoaList"
                                     },
                                     "example": [
                                         {
-                                            "id": "491913b5-f6e4-40c3-bda1-c838be01c9d2",
-                                            "code": "Uf de state 1",
-                                            "name": "Nome de state 1"
+                                            "id": 5,
+                                            "nome": "Gabriel Velezmoro",
+                                            "nomeMae": "nome mae",
+                                            "nomePai": "nome pai",
+                                            "cep": "88790000",
+                                            "dataNascimento": "1997-02-07T02:00:00.000Z",
+                                            "dataCadastro": "2023-04-29T03:00:00.000Z",
+                                            "dataEdicao": "2023-04-29T03:00:00.000Z"
                                         },
                                         {
-                                            "id": "4089104d-3742-41f0-92d9-692cce744bf6",
-                                            "code": "Uf de state 2",
-                                            "name": "Nome de state 2"
+                                            "id": 6,
+                                            "nome": "Gabriel Velezmoro",
+                                            "nomeMae": "nome mae",
+                                            "nomePai": "nome pai",
+                                            "cep": "88790000",
+                                            "dataNascimento": "1997-02-07T02:00:00.000Z",
+                                            "dataCadastro": "2023-04-29T03:00:00.000Z",
+                                            "dataEdicao": "2023-04-29T03:00:00.000Z"
                                         },
                                         {
-                                            "id": "c3d13511-60fa-4271-85d1-ed2f02aedd54",
-                                            "code": "Uf de state 3",
-                                            "name": "Nome de state 3"
+                                            "id": 7,
+                                            "nome": "Gabriel Velezmoro",
+                                            "nomeMae": "nome mae",
+                                            "nomePai": "nome pai",
+                                            "cep": "88790000",
+                                            "dataNascimento": "1997-02-07T02:00:00.000Z",
+                                            "dataCadastro": "2023-04-29T03:00:00.000Z",
+                                            "dataEdicao": "2023-04-29T03:00:00.000Z"
+                                        },
+                                        {
+                                            "id": 8,
+                                            "nome": "Gabriel Velezmoro",
+                                            "nomeMae": "nome mae",
+                                            "nomePai": "nome pai",
+                                            "cep": "88790000",
+                                            "dataNascimento": "1997-02-07T02:00:00.000Z",
+                                            "dataCadastro": "2023-04-29T03:00:00.000Z",
+                                            "dataEdicao": "2023-04-29T03:00:00.000Z"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "nome": "Gabriel Velezmoro",
+                                            "nomeMae": "nome mae",
+                                            "nomePai": "nome pai",
+                                            "cep": "88790000",
+                                            "dataNascimento": "1997-02-07T02:00:00.000Z",
+                                            "dataCadastro": "2023-04-28T03:00:00.000Z",
+                                            "dataEdicao": "2023-04-29T03:00:00.000Z"
                                         }
                                     ]
                                 }
@@ -153,8 +195,8 @@
                 "tags": [
                     "Pessoas"
                 ],
-                "summary": "Return a State.",
-                "description": "Return a single record of State.",
+                "summary": "Return a Pessoa.",
+                "description": "Return a single record of Pessoa.",
                 "security": [
                     {
                         "bearerAuth": []
@@ -164,7 +206,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "State id.",
+                        "description": "Pessoa id.",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -179,12 +221,29 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#\/components\/schemas\/StateGet"
+                                        "$ref": "#\/components\/schemas\/PessoaGet"
                                     },
                                     "example": {
-                                        "id": "da9f1c3d-3271-4b30-b729-1196e5b7402b",
-                                        "code": "Uf de state",
-                                        "name": "Nome de state"
+                                        "id": 5,
+                                        "nome": "Gabriel Velezmoro",
+                                        "nomeMae": "nome mae",
+                                        "nomePai": "nome pai",
+                                        "cep": "88790000",
+                                        "dataNascimento": "1997-02-07T02:00:00.000Z",
+                                        "dataCadastro": "2023-04-29T03:00:00.000Z",
+                                        "dataEdicao": "2023-04-29T03:00:00.000Z",
+                                        "localizacao": {
+                                            "cep": "88790-000",
+                                            "logradouro": "",
+                                            "complemento": "",
+                                            "bairro": "",
+                                            "localidade": "Laguna",
+                                            "uf": "SC",
+                                            "ibge": "4209409",
+                                            "gia": "",
+                                            "ddd": "48",
+                                            "siafi": "8185"
+                                        }
                                     }
                                 }
                             }
@@ -196,8 +255,8 @@
                 "tags": [
                     "Pessoas"
                 ],
-                "summary": "Delete a State.",
-                "description": "Delete a single record of State.",
+                "summary": "Delete a Pessoa.",
+                "description": "Delete a single record of Pessoa.",
                 "security": [
                     {
                         "bearerAuth": []
@@ -207,7 +266,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "State id.",
+                        "description": "Pessoa id.",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -222,12 +281,17 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#\/components\/schemas\/StateGet"
+                                        "$ref": "#\/components\/schemas\/PessoaGet"
                                     },
                                     "example": {
-                                        "id": "da9f1c3d-3271-4b30-b729-1196e5b7402b",
-                                        "code": "Uf de state",
-                                        "name": "Nome de state"
+                                        "id": 5,
+                                        "nome": "Gabriel Velezmoro",
+                                        "nomeMae": "nome mae",
+                                        "nomePai": "nome pai",
+                                        "cep": "88790000",
+                                        "dataNascimento": "1997-02-07T02:00:00.000Z",
+                                        "dataCadastro": "2023-04-29T03:00:00.000Z",
+                                        "dataEdicao": "2023-04-29T03:00:00.000Z"
                                     }
                                 }
                             }
@@ -241,8 +305,8 @@
                 "tags": [
                     "Notas"
                 ],
-                "summary": "Create a City.",
-                "description": "Create a City.",
+                "summary": "Create a Nota.",
+                "description": "Create a Nota.",
                 "security": [
                     {
                         "bearerAuth": []
@@ -252,32 +316,32 @@
                     "content": {
                         "application\/json": {
                             "schema": {
-                                "$ref": "#\/components\/schemas\/CityCreate"
+                                "$ref": "#\/components\/schemas\/NotaCreate"
                             }
                         }
                     }
                 },
                 "responses": {
                     "201": {
-                        "description": "City created",
+                        "description": "Nota created",
                         "content": {
                             "application\/json": {
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#\/components\/schemas\/CityCreate"
+                                        "$ref": "#\/components\/schemas\/NotaCreate"
                                     },
                                     "example": {
                                         "id": "da9f1c3d-3271-4b30-b729-1196e5b7402b",
                                         "state_id": "8f019a6b-cd1e-46e4-b1f6-a7b810a065ea",
-                                        "name": "Nome de city"
+                                        "name": "Nome de nota"
                                     }
                                 }
                             }
                         }
                     },
                     "500": {
-                        "description": "City already created"
+                        "description": "Nota already created"
                     }
                 }
             },
@@ -285,8 +349,8 @@
                 "tags": [
                     "Notas"
                 ],
-                "summary": "Update a City.",
-                "description": "Update a City.",
+                "summary": "Update a Nota.",
+                "description": "Update a Nota.",
                 "security": [
                     {
                         "bearerAuth": []
@@ -296,25 +360,25 @@
                     "content": {
                         "application\/json": {
                             "schema": {
-                                "$ref": "#\/components\/schemas\/CityUpdate"
+                                "$ref": "#\/components\/schemas\/NotaUpdate"
                             }
                         }
                     }
                 },
                 "responses": {
                     "201": {
-                        "description": "City updated",
+                        "description": "Nota updated",
                         "content": {
                             "application\/json": {
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#\/components\/schemas\/CityUpdate"
+                                        "$ref": "#\/components\/schemas\/NotaUpdate"
                                     },
                                     "example": {
                                         "id": "da9f1c3d-3271-4b30-b729-1196e5b7402b",
                                         "state_id": "f22683d6-6e11-428d-9d01-d979101eb036",
-                                        "name": "Nome de city"
+                                        "name": "Nome de nota"
                                     }
                                 }
                             }
@@ -328,8 +392,8 @@
                 "tags": [
                     "Notas"
                 ],
-                "summary": "List all Cities.",
-                "description": "List all Cities.",
+                "summary": "List all Notas.",
+                "description": "List all Notas.",
                 "security": [
                     {
                         "bearerAuth": []
@@ -339,7 +403,7 @@
                     "content": {
                         "application\/json": {
                             "schema": {
-                                "$ref": "#\/components\/schemas\/CityList"
+                                "$ref": "#\/components\/schemas\/NotaList"
                             }
                         }
                     }
@@ -352,23 +416,23 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#\/components\/schemas\/CityList"
+                                        "$ref": "#\/components\/schemas\/NotaList"
                                     },
                                     "example": [
                                         {
                                             "id": "04450d12-ae57-4dea-954e-43e014878612",
                                             "state_id": "2df9a958-e7cb-4656-9ce2-3b8fe47168cf",
-                                            "name": "Nome de city 1"
+                                            "name": "Nome de nota 1"
                                         },
                                         {
                                             "id": "761fbd00-0e00-401c-9eca-fa11bc7cdcac",
                                             "state_id": "9d5b5f6c-298d-4d57-893b-c57461670c6f",
-                                            "name": "Nome de city 2"
+                                            "name": "Nome de nota 2"
                                         },
                                         {
                                             "id": "e8de5b1f-f784-413c-9c1b-ed2d55715add",
                                             "state_id": "ad2b9a13-7e6d-442b-a41d-41f83cddf59e",
-                                            "name": "Nome de city 3"
+                                            "name": "Nome de nota 3"
                                         }
                                     ]
                                 }
@@ -383,8 +447,8 @@
                 "tags": [
                     "Notas"
                 ],
-                "summary": "Return a City.",
-                "description": "Return a single record of City.",
+                "summary": "Return a Nota.",
+                "description": "Return a single record of Nota.",
                 "security": [
                     {
                         "bearerAuth": []
@@ -394,7 +458,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "City id.",
+                        "description": "Nota id.",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -409,12 +473,12 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#\/components\/schemas\/CityGet"
+                                        "$ref": "#\/components\/schemas\/NotaGet"
                                     },
                                     "example": {
                                         "id": "da9f1c3d-3271-4b30-b729-1196e5b7402b",
                                         "state_id": "8b8898c3-c0f3-4233-9327-034c3a416713",
-                                        "name": "Nome de city"
+                                        "name": "Nome de nota"
                                     }
                                 }
                             }
@@ -426,8 +490,8 @@
                 "tags": [
                     "Notas"
                 ],
-                "summary": "Delete a City.",
-                "description": "Delete a single record of City.",
+                "summary": "Delete a Nota.",
+                "description": "Delete a single record of Nota.",
                 "security": [
                     {
                         "bearerAuth": []
@@ -437,7 +501,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "City id.",
+                        "description": "Nota id.",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -452,12 +516,12 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#\/components\/schemas\/CityGet"
+                                        "$ref": "#\/components\/schemas\/NotaGet"
                                     },
                                     "example": {
                                         "id": "da9f1c3d-3271-4b30-b729-1196e5b7402b",
                                         "state_id": "6dafc499-8b70-47e4-9b49-5a9353cc2083",
-                                        "name": "Nome de city"
+                                        "name": "Nome de nota"
                                     }
                                 }
                             }
@@ -479,16 +543,28 @@
             "PessoaCreate": {
                 "type": "object",
                 "properties": {
-                    "code": {
+                    "nome": {
                         "type": "string"
                     },
-                    "name": {
+                    "nomeMAe": {
+                        "type": "string"
+                    },
+                    "nomePai": {
+                        "type": "string"
+                    },
+                    "cep": {
+                        "type": "string"
+                    },
+                    "dataNascimento": {
                         "type": "string"
                     }
                 },
                 "example": {
-                    "code": "Uf de state",
-                    "name": "Nome de state"
+                    "nome": "Gabriel Velezmoro",
+                    "nomeMae": "nome mae",
+                    "nomePai": "nome pai",
+                    "cep": "88790000",
+                    "dataNascimento": "02-07-1997"
                 }
             },
             "PessoaList": {
@@ -505,9 +581,9 @@
                     }
                 },
                 "example": {
-                    "search": "state",
+                    "search": "",
                     "rowsPerPage": "10",
-                    "page": 1
+                    "page": ""
                 }
             },
             "PessoaGet": {
@@ -535,17 +611,29 @@
                     "id": {
                         "type": "string"
                     },
-                    "code": {
+                    "nome": {
                         "type": "string"
                     },
-                    "name": {
+                    "nomeMae": {
+                        "type": "string"
+                    },
+                    "nomePai": {
+                        "type": "string"
+                    },
+                    "cep": {
+                        "type": "string"
+                    },
+                    "dataNascimento": {
                         "type": "string"
                     }
                 },
                 "example": {
-                    "id": "da9f1c3d-3271-4b30-b729-1196e5b7402b",
-                    "code": "Uf de state",
-                    "name": "Nome de state"
+                    "id": 5,
+                    "nome": "Gabriel Velezmoro",
+                    "nomeMae": "nome mae",
+                    "nomePai": "nome pai",
+                    "cep": "88790000",
+                    "dataNascimento": "1997-02-07T02:00:00.000Z"
                 }
             },
             "NotaCreate": {
@@ -560,7 +648,7 @@
                 },
                 "example": {
                     "state_id": "e09c8bef-4394-4e7d-9d25-6996c4cdce86",
-                    "name": "Nome de city"
+                    "name": "Nome de nota"
                 }
             },
             "NotaList": {
@@ -577,20 +665,9 @@
                     }
                 },
                 "example": {
-                    "search": "city",
+                    "search": "nota",
                     "rowsPerPage": "10",
                     "page": 1
-                }
-            },
-            "NotaCount": {
-                "type": "object",
-                "properties": {
-                    "search": {
-                        "type": "string"
-                    }
-                },
-                "example": {
-                    "search": "city"
                 }
             },
             "NotaGet": {
@@ -609,7 +686,7 @@
                 "example": {
                     "id": "da9f1c3d-3271-4b30-b729-1196e5b7402b",
                     "state_id": "b63764b1-b0f0-4b82-b0ac-f0754346f23c",
-                    "name": "Nome de city"
+                    "name": "Nome de nota"
                 }
             },
             "NotaUpdate": {
@@ -628,7 +705,7 @@
                 "example": {
                     "id": "da9f1c3d-3271-4b30-b729-1196e5b7402b",
                     "state_id": "2e2c5c36-ed47-4dcc-b3fb-7eb97d9f7007",
-                    "name": "Nome de city"
+                    "name": "Nome de nota"
                 }
             }
         }
