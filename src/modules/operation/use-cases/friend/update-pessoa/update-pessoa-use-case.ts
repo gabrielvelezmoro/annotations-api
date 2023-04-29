@@ -40,7 +40,6 @@ class UpdatePessoaUseCase {
     } catch (error) {
       throw new AppError('CEP não localizado', 404)
     }
-  
 
     const person = await this.pessoaRepository.update({
       nome,
