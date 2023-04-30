@@ -28,6 +28,7 @@ class AnotacaoRepository implements IAnotacaoRepository {
 
     const result = await this.repository.save(anotacao)
       .then(anotacaoResult => {
+        console.log(anotacaoResult)
         return ok(anotacaoResult)
       })
       .catch(error => {
