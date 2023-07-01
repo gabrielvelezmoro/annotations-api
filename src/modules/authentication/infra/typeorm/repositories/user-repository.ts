@@ -1,13 +1,13 @@
-import { getRepository, Repository } from 'typeorm'
-import { IUserDTO } from '@modules/authentication/dtos/i-user-dto'
-import { IUserRepository } from '@modules/authentication/repositories/i-user-repository'
-import { User } from '../entities/user'
+import { getRepository, Repository } from "typeorm";
+import { IUserDTO } from "@modules/authentication/dtos/i-user-dto";
+import { IUserRepository } from "@modules/authentication/repositories/i-user-repository";
+import { User } from "../entities/user";
 
 class UserRepository implements IUserRepository {
-  private repository: Repository<User>
+  private repository: Repository<User>;
 
   constructor() {
-    this.repository = getRepository(User)
+    this.repository = getRepository(User);
   }
 
   async create({
@@ -16,11 +16,10 @@ class UserRepository implements IUserRepository {
     name,
     email,
     password,
-  
-  
+
     mustChangePasswordNextLogon,
     avatar,
-    isDisabled
+    isDisabled,
   }: IUserDTO): Promise<void> {
     const user = this.repository.create({
       id,
@@ -29,21 +28,21 @@ class UserRepository implements IUserRepository {
       email,
       password,
       avatar,
-      isDisabled
-    })
+      isDisabled,
+    });
 
-    await this.repository.save(user)
+    await this.repository.save(user);
   }
 
   async findByEmail(email: string): Promise<User> {
-    const user = await this.repository.findOne({ email })
-    return user
+    const user = await this.repository.findOne({ email });
+    return user;
   }
 
   async findById(id: string): Promise<User> {
-    const user = await this.repository.findOne(id)
-    return user
+    const user = await this.repository.findOne(id);
+    return user;
   }
 }
 
-export { UserRepository }
+export { UserRepository };

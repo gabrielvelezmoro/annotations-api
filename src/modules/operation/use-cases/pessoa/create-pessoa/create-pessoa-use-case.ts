@@ -1,9 +1,9 @@
-import { inject, injectable } from 'tsyringe'
-import { Pessoa } from '@modules/operation/infra/typeorm/entities/pessoa'
-import { IPessoaRepository } from '@modules/operation/repositories/i-pessoa-repository'
-import { AxiosRequest } from '@utils/axios'
-import {AxiosRequestConfig} from 'axios'
-import { AppError } from '@shared/errors/app-error'
+import { inject, injectable } from "tsyringe";
+import { Pessoa } from "@modules/operation/infra/typeorm/entities/pessoa";
+import { IPessoaRepository } from "@modules/operation/repositories/i-pessoa-repository";
+import { AxiosRequest } from "@utils/axios";
+import { AxiosRequestConfig } from "axios";
+import { AppError } from "@shared/errors/app-error";
 interface IRequest {
   nome: string;
   nomeMae: string;
@@ -15,7 +15,7 @@ interface IRequest {
 @injectable()
 class CreatePessoaUseCase {
   constructor(
-    @inject('PessoaRepository')
+    @inject("PessoaRepository")
     private pessoaRepository: IPessoaRepository
   ) {}
 
@@ -25,35 +25,36 @@ class CreatePessoaUseCase {
     nomePai,
     cep,
     dataNascimento,
-  }: IRequest): Promise<Pessoa> { 
-    const axiosRequest = new AxiosRequest() 
-      
+  }: IRequest): Promise<Pessoa> {
+    const axiosRequest = new AxiosRequest();
+
     const config: AxiosRequestConfig = {
-      baseURL: 'https://viacep.com.br/ws/' + cep + '/json/',
+      baseURL: "https://viacep.com.br/ws/" + cep + "/json/",
       method: "GET",
     };
-    
+
     try {
-      await axiosRequest.execute(config)
+      await axiosRequest.execute(config);
     } catch (error) {
-      throw new AppError('CEP não localizado', 404)
+      throw new AppError("CEP não localizado", 404);
     }
-      const result = await this.pessoaRepository.create({
+    const result = await this.pessoaRepository
+      .create({
         nome,
         nomeMae,
         nomePai,
         cep,
-        dataNascimento
+        dataNascimento,
       })
-      .then(pessoaResult => {
-        return pessoaResult
+      .then((pessoaResult) => {
+        return pessoaResult;
       })
-      .catch(error => {
-        return error
-      })
+      .catch((error) => {
+        return error;
+      });
 
-    return result
+    return result;
   }
 }
 
-export { CreatePessoaUseCase }
+export { CreatePessoaUseCase };

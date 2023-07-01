@@ -1,39 +1,36 @@
-import { inject, injectable } from 'tsyringe'
-import { Anotacao } from '@modules/operation/infra/typeorm/entities/anotacao'
-import { IAnotacaoRepository } from '@modules/operation/repositories/i-anotacao-repository'
+import { inject, injectable } from "tsyringe";
+import { Anotacao } from "@modules/operation/infra/typeorm/entities/anotacao";
+import { IAnotacaoRepository } from "@modules/operation/repositories/i-anotacao-repository";
 
 interface IRequest {
-  idPessoa: number,
-  titulo: string,
-  descricao: string
+  idPessoa: number;
+  titulo: string;
+  descricao: string;
 }
 
 @injectable()
 class CreateAnotacaoUseCase {
   constructor(
-    @inject('AnotacaoRepository')
+    @inject("AnotacaoRepository")
     private anotacaoRepository: IAnotacaoRepository
   ) {}
 
-  async execute({
-   idPessoa,
-   titulo,
-   descricao
-  }: IRequest): Promise<Anotacao> { 
-      const result = await this.anotacaoRepository.create({
+  async execute({ idPessoa, titulo, descricao }: IRequest): Promise<Anotacao> {
+    const result = await this.anotacaoRepository
+      .create({
         idPessoa,
         titulo,
-        descricao
+        descricao,
       })
-      .then(anotacaoResult => {
-        return anotacaoResult
+      .then((anotacaoResult) => {
+        return anotacaoResult;
       })
-      .catch(error => {
-        return error
-      })
+      .catch((error) => {
+        return error;
+      });
 
-    return result
+    return result;
   }
 }
 
-export { CreateAnotacaoUseCase }
+export { CreateAnotacaoUseCase };

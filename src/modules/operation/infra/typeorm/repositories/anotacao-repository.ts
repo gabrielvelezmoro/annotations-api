@@ -1,115 +1,113 @@
-import { getRepository, Repository } from 'typeorm'
-import { IAnotacaoDTO } from '@modules/operation/dtos/i-anotacao-dto'
-import { IAnotacaoRepository } from '@modules/operation/repositories/i-anotacao-repository'
-import { Anotacao } from '@modules/operation/infra/typeorm/entities/anotacao'
-import { noContent, serverError, ok, notFound, HttpResponse } from '@shared/helpers'
+import { getRepository, Repository } from "typeorm";
+import { IAnotacaoDTO } from "@modules/operation/dtos/i-anotacao-dto";
+import { IAnotacaoRepository } from "@modules/operation/repositories/i-anotacao-repository";
+import { Anotacao } from "@modules/operation/infra/typeorm/entities/anotacao";
+import {
+  noContent,
+  serverError,
+  ok,
+  notFound,
+  HttpResponse,
+} from "@shared/helpers";
 
 class AnotacaoRepository implements IAnotacaoRepository {
-  private repository: Repository<Anotacao>
+  private repository: Repository<Anotacao>;
 
   constructor() {
-    this.repository = getRepository(Anotacao)
+    this.repository = getRepository(Anotacao);
   }
 
-
   // create
-  async create ({
+  async create({
     idPessoa,
     titulo,
     descricao,
   }: IAnotacaoDTO): Promise<HttpResponse> {
-    const anotacao = this.repository.create(
-    { 
+    const anotacao = this.repository.create({
       idPessoa,
       titulo,
       descricao,
-      }
-    )
+    });
 
-    const result = await this.repository.save(anotacao)
-      .then(anotacaoResult => {
-        console.log(anotacaoResult)
-        return ok(anotacaoResult)
+    const result = await this.repository
+      .save(anotacao)
+      .then((anotacaoResult) => {
+        console.log(anotacaoResult);
+        return ok(anotacaoResult);
       })
-      .catch(error => {
-        return serverError(error.message)
-      })
+      .catch((error) => {
+        return serverError(error.message);
+      });
 
-    return result
+    return result;
   }
 
-
   // list
-  async list (
+  async list(
     search: string,
     page: number,
     rowsPerPage: number,
-    columnOrder: Array<'ASC' | 'DESC'>
+    columnOrder: Array<"ASC" | "DESC">
   ): Promise<HttpResponse> {
-
-    if ((typeof columnOrder === 'undefined') || (columnOrder.length === 0)) {
-      const sortArray = new Array<'ASC' | 'DESC'>(4).fill('ASC')
-      columnOrder = sortArray
+    if (typeof columnOrder === "undefined" || columnOrder.length === 0) {
+      const sortArray = new Array<"ASC" | "DESC">(4).fill("ASC");
+      columnOrder = sortArray;
     }
 
-    const offset = rowsPerPage * page
+    const offset = rowsPerPage * page;
 
     try {
-      let anotacoes = await this.repository.createQueryBuilder('nota')
-        .select([
-          'nota.id',
-          'nota.idPessoa',
-          'nota.titulo'
-        ])
-        .where('CAST(titulo AS VARCHAR) ilike :search', { search: `%${search}%` })
+      let anotacoes = await this.repository
+        .createQueryBuilder("nota")
+        .select(["nota.id", "nota.idPessoa", "nota.titulo"])
+        .where("CAST(titulo AS VARCHAR) ilike :search", {
+          search: `%${search}%`,
+        })
         .take(rowsPerPage)
         .skip(offset)
-        .getMany()
+        .getMany();
 
       // below statements are to solve typeorm bug related to use of leftjoins, filters, .take and .skip together
 
       if (anotacoes.length > rowsPerPage) {
-        anotacoes = anotacoes.slice(offset, offset + rowsPerPage)
+        anotacoes = anotacoes.slice(offset, offset + rowsPerPage);
       }
       //
 
-      return ok(anotacoes)
+      return ok(anotacoes);
     } catch (err) {
-      return serverError(err)
+      return serverError(err);
     }
   }
-
-
 
   // get
-  async get (id: string): Promise<HttpResponse> {
+  async get(id: string): Promise<HttpResponse> {
     try {
-      const anotacao = await this.repository.findOne(id)
+      const anotacao = await this.repository.findOne(id);
 
-      if (typeof anotacao === 'undefined') {
-        return noContent()
+      if (typeof anotacao === "undefined") {
+        return noContent();
       }
 
-      return ok(anotacao)
+      return ok(anotacao);
     } catch (err) {
-      return serverError(err)
+      return serverError(err);
     }
   }
 
-
   // update
-  async update ({
+  async update({
     id,
     idPessoa,
     titulo,
     descricao,
     dataCadastro,
-    dataEdicao
+    dataEdicao,
   }: IAnotacaoDTO): Promise<HttpResponse> {
-    const anotacao = await this.repository.findOne(id)
+    const anotacao = await this.repository.findOne(id);
 
     if (!anotacao) {
-      return notFound()
+      return notFound();
     }
 
     const newAnotacao = this.repository.create({
@@ -118,25 +116,24 @@ class AnotacaoRepository implements IAnotacaoRepository {
       titulo,
       descricao,
       dataCadastro,
-      dataEdicao
-    })
+      dataEdicao,
+    });
 
     try {
-      await this.repository.update(anotacao,newAnotacao)
+      await this.repository.update(anotacao, newAnotacao);
 
-      return ok(newAnotacao)
+      return ok(newAnotacao);
     } catch (err) {
-      return serverError(err)
+      return serverError(err);
     }
   }
 
-
   // delete
-  async delete (id: string): Promise<HttpResponse> {
-    await this.repository.delete(id)
+  async delete(id: string): Promise<HttpResponse> {
+    await this.repository.delete(id);
 
-    return noContent()
+    return noContent();
   }
 }
 
-export { AnotacaoRepository }
+export { AnotacaoRepository };

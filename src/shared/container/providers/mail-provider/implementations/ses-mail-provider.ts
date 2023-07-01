@@ -1,21 +1,21 @@
-import { SES } from 'aws-sdk'
-import fs from 'fs'
-import handlebars from 'handlebars'
-import nodemailer, { Transporter } from 'nodemailer'
-import { injectable } from 'tsyringe'
-import { IMailProvider } from '../i-mail-provider'
+import { SES } from "aws-sdk";
+import fs from "fs";
+import handlebars from "handlebars";
+import nodemailer, { Transporter } from "nodemailer";
+import { injectable } from "tsyringe";
+import { IMailProvider } from "../i-mail-provider";
 
 @injectable()
 class SESMailProvider implements IMailProvider {
-  private client: Transporter
+  private client: Transporter;
 
   constructor() {
     this.client = nodemailer.createTransport({
       SES: new SES({
-        apiVersion: '2010-12-01',
+        apiVersion: "2010-12-01",
         region: process.env.AWS_REGION,
       }),
-    })
+    });
   }
 
   async sendMail(
@@ -24,19 +24,19 @@ class SESMailProvider implements IMailProvider {
     variables: any,
     path: string
   ): Promise<void> {
-    const templateFileContent = fs.readFileSync(path).toString('utf-8')
+    const templateFileContent = fs.readFileSync(path).toString("utf-8");
 
-    const templateParse = handlebars.compile(templateFileContent)
+    const templateParse = handlebars.compile(templateFileContent);
 
-    const templateHTML = templateParse(variables)
+    const templateHTML = templateParse(variables);
 
     await this.client.sendMail({
       to,
-      from: 'velez <velez@velez.com.br>',
+      from: "velez <velez@velez.com.br>",
       subject,
       html: templateHTML,
-    })
+    });
   }
 }
 
-export { SESMailProvider }
+export { SESMailProvider };

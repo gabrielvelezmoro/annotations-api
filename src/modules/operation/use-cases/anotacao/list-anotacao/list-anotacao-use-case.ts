@@ -1,18 +1,18 @@
-import { inject, injectable } from 'tsyringe'
-import { IAnotacaoRepository } from '@modules/operation/repositories/i-anotacao-repository'
-import { HttpResponse } from '@shared/helpers'
+import { inject, injectable } from "tsyringe";
+import { IAnotacaoRepository } from "@modules/operation/repositories/i-anotacao-repository";
+import { HttpResponse } from "@shared/helpers";
 
 interface IRequest {
-  search: string,
-  page: number,
-  rowsPerPage: number,
-  columnOrder: Array<'ASC' | 'DESC'>
+  search: string;
+  page: number;
+  rowsPerPage: number;
+  columnOrder: Array<"ASC" | "DESC">;
 }
 
 @injectable()
 class ListAnotacaoUseCase {
   constructor(
-    @inject('AnotacaoRepository')
+    @inject("AnotacaoRepository")
     private anotacaoRepository: IAnotacaoRepository
   ) {}
 
@@ -20,17 +20,17 @@ class ListAnotacaoUseCase {
     search,
     page,
     rowsPerPage,
-    columnOrder
+    columnOrder,
   }: IRequest): Promise<HttpResponse> {
     const anotacaos = await this.anotacaoRepository.list(
       search,
       page,
       rowsPerPage,
       columnOrder
-    )
+    );
 
-    return anotacaos
+    return anotacaos;
   }
 }
 
-export { ListAnotacaoUseCase }
+export { ListAnotacaoUseCase };

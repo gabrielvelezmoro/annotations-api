@@ -1,28 +1,35 @@
-import { PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn, Entity, JoinColumn, ManyToOne } from 'typeorm'
+import {
+  PrimaryColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+} from "typeorm";
 
-import { Pessoa } from './pessoa'
+import { Pessoa } from "./pessoa";
 
-@Entity('anotacao')
+@Entity("anotacao")
 class Anotacao {
   @PrimaryColumn()
-  id?: number
+  id?: number;
 
   @ManyToOne(() => Pessoa, { nullable: false, eager: true })
-  @JoinColumn({ name: 'id_pessoa', referencedColumnName: 'id' })
-  idPessoa?: number
+  @JoinColumn({ name: "id_pessoa", referencedColumnName: "id" })
+  idPessoa?: number;
 
-  @Column({ name: 'titulo', nullable: false })
-  titulo?: string
+  @Column({ name: "titulo", nullable: false })
+  titulo?: string;
 
-  @Column({ name: 'descricao', nullable: true })
-  descricao?: string
+  @Column({ name: "descricao", nullable: true })
+  descricao?: string;
 
-  @CreateDateColumn({ name: 'data_cadastro', nullable: false })
-  dataCadastro?: Date
+  @CreateDateColumn({ name: "data_cadastro", nullable: false })
+  dataCadastro?: Date;
 
-  @UpdateDateColumn({ name: 'data_edicao', nullable: false })
-  dataEdicao?: Date
-
+  @UpdateDateColumn({ name: "data_edicao", nullable: false })
+  dataEdicao?: Date;
 }
 
-export { Anotacao }
+export { Anotacao };

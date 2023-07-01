@@ -1,153 +1,145 @@
-import { getRepository, Repository } from 'typeorm'
-import { IPessoaDTO } from '@modules/operation/dtos/i-pessoa-dto'
-import { IPessoaRepository } from '@modules/operation/repositories/i-pessoa-repository'
-import { Pessoa } from '@modules/operation/infra/typeorm/entities/pessoa'
-import { noContent, serverError, ok, notFound, HttpResponse } from '@shared/helpers'
+import { getRepository, Repository } from "typeorm";
+import { IPessoaDTO } from "@modules/operation/dtos/i-pessoa-dto";
+import { IPessoaRepository } from "@modules/operation/repositories/i-pessoa-repository";
+import { Pessoa } from "@modules/operation/infra/typeorm/entities/pessoa";
+import {
+  noContent,
+  serverError,
+  ok,
+  notFound,
+  HttpResponse,
+} from "@shared/helpers";
 
 class PessoaRepository implements IPessoaRepository {
-  private repository: Repository<Pessoa>
+  private repository: Repository<Pessoa>;
 
   constructor() {
-    this.repository = getRepository(Pessoa)
+    this.repository = getRepository(Pessoa);
   }
 
-
   // create
-  async create ({
+  async create({
     nome,
     nomeMae,
     nomePai,
     cep,
-    dataNascimento
+    dataNascimento,
   }: IPessoaDTO): Promise<HttpResponse> {
-    const pessoa = this.repository.create(
-    { 
+    const pessoa = this.repository.create({
       nome,
       nomeMae,
       nomePai,
       cep,
-      dataNascimento}
-    )
+      dataNascimento,
+    });
 
-    const result = await this.repository.save(pessoa)
-      .then(pessoaResult => {
-        return ok(pessoaResult)
+    const result = await this.repository
+      .save(pessoa)
+      .then((pessoaResult) => {
+        return ok(pessoaResult);
       })
-      .catch(error => {
-        return serverError(error.message)
-      })
+      .catch((error) => {
+        return serverError(error.message);
+      });
 
-    return result
+    return result;
   }
 
-
   // list
-  async list (
+  async list(
     search: string,
     page: number,
     rowsPerPage: number,
-    columnOrder: Array<'ASC' | 'DESC'>
+    columnOrder: Array<"ASC" | "DESC">
   ): Promise<HttpResponse> {
-
-    if ((typeof columnOrder === 'undefined') || (columnOrder.length === 0)) {
-      const sortArray = new Array<'ASC' | 'DESC'>(4).fill('ASC')
-      columnOrder = sortArray
+    if (typeof columnOrder === "undefined" || columnOrder.length === 0) {
+      const sortArray = new Array<"ASC" | "DESC">(4).fill("ASC");
+      columnOrder = sortArray;
     }
 
-    const offset = rowsPerPage * page
+    const offset = rowsPerPage * page;
 
     try {
-      let persons = await this.repository.createQueryBuilder('per')
+      let persons = await this.repository
+        .createQueryBuilder("per")
         .select([
-          'per.id',
-          'per.nome',
-          'per.nomeMae',
-          'per.nomePai',
-          'per.dataNascimento',
-          'per.dataCadastro',
-          'per.dataEdicao',
-          'per.cep',
+          "per.id",
+          "per.nome",
+          "per.nomeMae",
+          "per.nomePai",
+          "per.dataNascimento",
+          "per.dataCadastro",
+          "per.dataEdicao",
+          "per.cep",
         ])
-        .where('CAST(nome AS VARCHAR) ilike :search', { search: `%${search}%` })
+        .where("CAST(nome AS VARCHAR) ilike :search", { search: `%${search}%` })
         .take(rowsPerPage)
         .skip(offset)
-        .getMany()
+        .getMany();
 
       // below statements are to solve typeorm bug related to use of leftjoins, filters, .take and .skip together
 
       if (persons.length > rowsPerPage) {
-        persons = persons.slice(offset, offset + rowsPerPage)
+        persons = persons.slice(offset, offset + rowsPerPage);
       }
 
       //
 
-      return ok(persons)
+      return ok(persons);
     } catch (err) {
-      return serverError(err)
+      return serverError(err);
     }
   }
-
 
   // select
-  async select (): Promise<HttpResponse> {
+  async select(): Promise<HttpResponse> {
     try {
-      const persons = await this.repository.createQueryBuilder('per')
-        .select([
-          'per.id',
-          'per.nome',
-          'per.nomeMae',
-          'per.nomePai',
-          'per.cep',
-        ])
-        .addOrderBy('per.nome')
-        .getMany()
+      const persons = await this.repository
+        .createQueryBuilder("per")
+        .select(["per.id", "per.nome", "per.nomeMae", "per.nomePai", "per.cep"])
+        .addOrderBy("per.nome")
+        .getMany();
 
-      return ok(persons)
+      return ok(persons);
     } catch (err) {
-      return serverError(err)
+      return serverError(err);
     }
   }
-
 
   // count
-  async count (
-    search: string,
-  ): Promise<HttpResponse> {
+  async count(search: string): Promise<HttpResponse> {
     try {
-      const persons = await this.repository.createQueryBuilder('per')
-        .select([
-          'per.id as "id"',
-        ])
-        .where('per.nome ilike :search', { search: `%${search}%` })
-        .orWhere('per.nomeMae ilike :search', { search: `%${search}%` })
-        .orWhere('per.nomePai ilike :search', { search: `%${search}%` })
-        .getMany()
+      const persons = await this.repository
+        .createQueryBuilder("per")
+        .select(['per.id as "id"'])
+        .where("per.nome ilike :search", { search: `%${search}%` })
+        .orWhere("per.nomeMae ilike :search", { search: `%${search}%` })
+        .orWhere("per.nomePai ilike :search", { search: `%${search}%` })
+        .getMany();
 
-      return ok({ count: persons.length })
+      return ok({ count: persons.length });
     } catch (err) {
-      return serverError(err)
+      return serverError(err);
     }
   }
-
 
   // get
-  async get (id: string): Promise<HttpResponse> {
+  async get(id: string): Promise<HttpResponse> {
     try {
-      const person = await this.repository.findOne(id)
+      const person = await this.repository.findOne(id);
 
-      if (typeof person === 'undefined') {
-        return noContent()
+      if (typeof person === "undefined") {
+        return noContent();
       }
 
-      return ok(person)
+      return ok(person);
     } catch (err) {
-      return serverError(err)
+      return serverError(err);
     }
   }
 
-
   // update
-  async update ({
+  async update({
     id,
     nome,
     nomeMae,
@@ -155,12 +147,12 @@ class PessoaRepository implements IPessoaRepository {
     cep,
     dataNascimento,
     dataCadastro,
-    dataEdicao
+    dataEdicao,
   }: IPessoaDTO): Promise<HttpResponse> {
-    const pessoa = await this.repository.findOne(id)
+    const pessoa = await this.repository.findOne(id);
 
     if (!pessoa) {
-      return notFound()
+      return notFound();
     }
 
     const newPessoa = this.repository.create({
@@ -170,25 +162,24 @@ class PessoaRepository implements IPessoaRepository {
       cep,
       dataNascimento,
       dataCadastro,
-      dataEdicao
-    })
+      dataEdicao,
+    });
 
     try {
-      await this.repository.update(pessoa,newPessoa)
+      await this.repository.update(pessoa, newPessoa);
 
-      return ok(newPessoa)
+      return ok(newPessoa);
     } catch (err) {
-      return serverError(err)
+      return serverError(err);
     }
   }
 
-
   // delete
-  async delete (id: string): Promise<HttpResponse> {
-    await this.repository.delete(id)
+  async delete(id: string): Promise<HttpResponse> {
+    await this.repository.delete(id);
 
-    return noContent()
+    return noContent();
   }
 }
 
-export { PessoaRepository }
+export { PessoaRepository };

@@ -4,7 +4,7 @@ interface IMailProvider {
     subject: string,
     variables: any,
     path: string
-  ): Promise<void>
+  ): Promise<void>;
 }
 
-export { IMailProvider }
+export { IMailProvider };
