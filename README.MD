@@ -1,2 +1,2 @@
 * Run with npm  
-* Run application to then integration tests  
+* Run application and then integration tests while application is running
